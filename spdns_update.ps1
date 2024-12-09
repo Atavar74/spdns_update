@@ -17,7 +17,7 @@ $logging = $false
 $myServiceList = "http://ipecho.net/plain"`
                 ,"http://checkip4.spdns.de"`
                 ,"http://ident.me"
-#                ,"http://plain-text-ip.com"
+#down?          ,"http://plain-text-ip.com"
 
 ### no necessity to edit below this line ###
 function log {
