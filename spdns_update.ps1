@@ -1,11 +1,13 @@
 #requires -version 4
+#updated for ipv6
+#call by parameters: Powershell -File spdns_update.ps1 <hostname> <password>
 
 Clear-Host
 
 # (mandatory) adjust your values
-$fqdn = ""
-$pwd = ""
-$user = ""
+$fqdn = $args[0]
+$pwd  = $args[1]
+$user = $args[0]
 
 # (optional) set full path to (writable) logfile and switch logging on ($true) or off ($false)
 $myLogFile = "C:\scripts\spdns_update.log"
@@ -14,8 +16,8 @@ $logging = $false
 # (optional) add or remove service sites. NOTE: A service sites MUST return a plain IP string WITHOUT any HTML tags!
 $myServiceList = "http://ipecho.net/plain"`
                 ,"http://checkip4.spdns.de"`
-                ,"http://ident.me"`
-                ,"http://plain-text-ip.com"
+                ,"http://ident.me"
+#                ,"http://plain-text-ip.com"
 
 ### no necessity to edit below this line ###
 function log {
@@ -37,7 +39,8 @@ function checkIP ($myServiceAddress) {
     try {
         $myIP = Invoke-WebRequest -Uri $myServiceAddress -UseBasicParsing -TimeoutSec 10 -ErrorAction Stop
 
-        if ( -not ($myIP) -or -not ($myIP -match '^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')) {
+#        if ( -not ($myIP) -or -not ($myIP -match '^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')) {
+        if ( -not ($myIP) -or -not ($myIP -match '^([0-9a-f]{0,4}\:){7}[0-9a-f]{0,4}$')) {
             "checkIP " + "No valid response" | log
             exit 1
         }
