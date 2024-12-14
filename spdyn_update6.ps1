@@ -6,7 +6,7 @@
 
 Clear-Host
 
-# (mandatory) adjust your values
+# (optional) adjust your values
 $fqdn = $args[0]
 $pwd  = $args[1]
 $user = $args[0]
@@ -30,8 +30,10 @@ function log {
 	"$piped"
 }
 
-### Getting the IPv6 directly from the System, either use the fixed Address, or a randomized. (depending of what used for Firewall-opening) ###
+### Getting the IPv6 ###
 try {
+	### ...directly from the System. Either use the constant Address, or the randomized. Depending of what used for Firewall-opening
+ 	### This may help for adjustments: Get-NetIPAddress | Format-Table
 	#$currentIP = (Get-NetIPAddress -AddressFamily IPv6 -PrefixOrigin RouterAdvertisement -SuffixOrigin Link ).IPAddress
 	$currentIP = (Get-NetIPAddress -AddressFamily IPv6 -PrefixOrigin RouterAdvertisement -SuffixOrigin Random ).IPAddress
 	"Current IPv6: " + $currentIP | log
