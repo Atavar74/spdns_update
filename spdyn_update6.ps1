@@ -44,9 +44,9 @@ try {
 
 ### Compare with registered Address, exit when same
 try {
-	"Resolve DNS Name " + "Using native Commandlet" | log
-		$ipHostEntry = Resolve-DnsName $fqdn -Type AAAA -ErrorAction Stop
-		$registeredIP = $ipHostEntry[0].IPAddress
+	"Resolve DNS Name" | log
+	$ipHostEntry = Resolve-DnsName $fqdn -Type AAAA -ErrorAction Stop
+	$registeredIP = $ipHostEntry[0].IPAddress
 
 } catch {
 	"Resolve DNS Name " + $_.Exception.Message | log
